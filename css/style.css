@@ -68,7 +68,7 @@ a:hover {
 }
 
 .container {
-  width: min(1120px, 92vw);
+  width: min(1200px, 94vw);
   margin-inline: auto;
 }
 
@@ -350,12 +350,12 @@ a:hover {
 .section-lead {
   margin: 0 0 2.5rem;
   color: var(--text-muted);
-  max-width: 540px;
+  max-width: 900px;
 }
 
 .about-text {
   margin: 0;
-  max-width: 640px;
+  max-width: 980px;
   color: var(--text-muted);
   font-size: 1.05rem;
 }
@@ -377,7 +377,7 @@ a:hover {
   list-style: none;
   margin: 0;
   padding: 0;
-  max-width: 640px;
+  max-width: 980px;
 }
 
 .timeline-item {
