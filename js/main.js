@@ -143,8 +143,27 @@ function initYear() {
   if (y) y.textContent = String(new Date().getFullYear());
 }
 
+function prefersReducedMotion() {
+  return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+/** 맨 위로 — 앵커(#top) + 항상 scrollY=0으로 이동(스티키 헤더 id 사용 시 깨지는 현상 방지) */
+function initScrollToTopAnchors() {
+  document.querySelectorAll('a[href="#top"]').forEach((el) => {
+    el.addEventListener("click", (e) => {
+      e.preventDefault();
+      const behavior = prefersReducedMotion() ? "auto" : "smooth";
+      window.scrollTo({ top: 0, left: 0, behavior });
+      if (typeof window.history.replaceState === "function") {
+        window.history.replaceState(null, "", "#top");
+      }
+    });
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderProjects();
   initNav();
   initYear();
+  initScrollToTopAnchors();
 });

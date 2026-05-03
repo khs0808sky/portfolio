@@ -86,11 +86,21 @@ a:hover {
   border-bottom: 1px solid var(--border-subtle);
 }
 
+.anchor-top {
+  height: 0;
+  overflow: hidden;
+  pointer-events: none;
+}
+
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
   width: 100%;
+}
+
+.site-nav {
+  padding-inline-end: clamp(0.75rem, 3vw, 1.65rem);
 }
 
 .logo {
@@ -153,10 +163,17 @@ a:hover {
 
 .nav-list {
   display: flex;
-  gap: 2rem;
+  gap: clamp(1.15rem, 2.8vw, 2rem);
   list-style: none;
   margin: 0;
   padding: 0;
+}
+
+@media (min-width: 721px) {
+  .nav-list {
+    margin-inline-start: clamp(0.75rem, 2vw, 1.5rem);
+    padding-inline-end: 0.15rem;
+  }
 }
 
 .nav-list a {
@@ -240,7 +257,16 @@ a:hover {
 .hero-actions {
   display: flex;
   flex-wrap: wrap;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.hero-nav-btn {
+  flex: 0 1 auto;
+}
+
+.hero-actions .hero-nav-btn.btn-ghost {
+  padding-inline: 1.2rem;
 }
 
 .btn {
