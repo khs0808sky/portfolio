@@ -207,17 +207,8 @@ a:hover {
   max-width: 640px;
 }
 
-.hero-eyebrow {
-  margin: 0 0 0.75rem;
-  font-size: 0.85rem;
-  font-weight: 500;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent-2);
-}
-
 .hero-title {
-  margin: 0 0 1.25rem;
+  margin: 0 0 0.85rem;
   font-size: clamp(2rem, 5vw, 3.25rem);
   font-weight: 700;
   line-height: 1.15;
@@ -229,6 +220,14 @@ a:hover {
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
+}
+
+.hero-roles {
+  margin: 0 0 1.25rem;
+  font-size: 1.125rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  letter-spacing: 0.02em;
 }
 
 .hero-lead {
@@ -343,6 +342,167 @@ a:hover {
   color: var(--accent-2);
 }
 
+/* ===== 경험 타임라인 ===== */
+.experience {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.timeline {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-width: 640px;
+}
+
+.timeline-item {
+  position: relative;
+  display: grid;
+  grid-template-columns: 4.25rem 1fr;
+  gap: 1.25rem 1.5rem;
+  padding-bottom: 2rem;
+  padding-left: 0;
+}
+
+.timeline-item:last-child {
+  padding-bottom: 0;
+}
+
+.timeline-item::before {
+  content: "";
+  position: absolute;
+  left: 2rem;
+  top: 0.35rem;
+  bottom: 0;
+  width: 2px;
+  margin-left: -1px;
+  background: linear-gradient(
+    to bottom,
+    rgba(124, 108, 249, 0.55),
+    rgba(0, 212, 170, 0.25)
+  );
+  border-radius: 2px;
+}
+
+.timeline-item:last-child::before {
+  bottom: auto;
+  height: 1rem;
+}
+
+.timeline-year {
+  position: relative;
+  z-index: 1;
+  font-size: 0.82rem;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  color: var(--accent-2);
+}
+
+.timeline-body {
+  position: relative;
+  padding: 1.1rem 1.35rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.timeline-heading {
+  margin: 0 0 0.35rem;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.timeline-desc {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--text-muted);
+  line-height: 1.5;
+}
+
+/* ===== 자격증 · 수상 ===== */
+.credentials {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.credentials-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.5rem;
+}
+
+.credential-card {
+  padding: 1.5rem 1.5rem 1.35rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow);
+}
+
+.credential-card-title {
+  margin: 0 0 1rem;
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--accent-2);
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.credential-list {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: var(--text-muted);
+  font-size: 0.95rem;
+  line-height: 1.65;
+}
+
+.credential-list li + li {
+  margin-top: 0.65rem;
+}
+
+/* ===== 기술 스택 ===== */
+.skills {
+  border-top: 1px solid var(--border-subtle);
+}
+
+.skill-groups {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1.5rem;
+}
+
+.skill-group {
+  padding: 1.35rem 1.5rem;
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-lg);
+}
+
+.skill-group-title {
+  margin: 0 0 1rem;
+  font-size: 0.92rem;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: 0.04em;
+}
+
+.skill-tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.skill-tags li {
+  font-size: 0.82rem;
+  font-weight: 500;
+  padding: 0.4rem 0.75rem;
+  border-radius: 999px;
+  border: 1px solid var(--border-subtle);
+  background: rgba(124, 108, 249, 0.12);
+  color: #dcd8ff;
+}
+
 /* ===== 프로젝트 카드 ===== */
 .project-grid {
   display: grid;
@@ -452,84 +612,8 @@ a:hover {
   opacity: 0.85;
 }
 
-/* ===== 연락 ===== */
-.contact {
+.projects {
   border-top: 1px solid var(--border-subtle);
-}
-
-.contact-layout {
-  display: grid;
-  grid-template-columns: 1fr 1.1fr;
-  gap: 3rem;
-  align-items: start;
-}
-
-.contact-lead {
-  margin: 0;
-  color: var(--text-muted);
-  max-width: 400px;
-}
-
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.25rem;
-}
-
-.form-row label {
-  display: block;
-  margin-bottom: 0.4rem;
-  font-size: 0.9rem;
-  font-weight: 500;
-  color: var(--text-muted);
-}
-
-.form-row input,
-.form-row textarea {
-  width: 100%;
-  padding: 0.85rem 1rem;
-  font-family: inherit;
-  font-size: 1rem;
-  color: var(--text);
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius);
-  transition: border-color var(--transition), box-shadow var(--transition);
-}
-
-.form-row input::placeholder,
-.form-row textarea::placeholder {
-  color: rgba(154, 154, 176, 0.6);
-}
-
-.form-row input:focus,
-.form-row textarea:focus {
-  outline: none;
-  border-color: rgba(124, 108, 249, 0.55);
-  box-shadow: 0 0 0 3px rgba(124, 108, 249, 0.2);
-}
-
-.form-row textarea {
-  resize: vertical;
-  min-height: 120px;
-}
-
-.field-error {
-  display: block;
-  min-height: 1.25rem;
-  margin-top: 0.35rem;
-  font-size: 0.8rem;
-  color: #ff6b8a;
-}
-
-.form-success {
-  margin: 0;
-  padding: 0.85rem 1rem;
-  border-radius: var(--radius);
-  background: rgba(0, 212, 170, 0.12);
-  border: 1px solid rgba(0, 212, 170, 0.35);
-  color: var(--accent-2);
-  font-size: 0.95rem;
 }
 
 /* ===== 푸터 ===== */
@@ -567,7 +651,11 @@ a:hover {
     grid-template-columns: repeat(2, 1fr);
   }
 
-  .contact-layout {
+  .credentials-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .skill-groups {
     grid-template-columns: 1fr;
   }
 }

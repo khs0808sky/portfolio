@@ -138,63 +138,6 @@ function initNav() {
   });
 }
 
-function initContactForm() {
-  const form = document.getElementById("contact-form");
-  const success = document.getElementById("form-success");
-  if (!form) return;
-
-  const fields = [
-    { id: "name", message: "이름을 2자 이상 입력해 주세요." },
-    { id: "email", message: "올바른 이메일 주소를 입력해 주세요." },
-    { id: "message", message: "메시지를 10자 이상 입력해 주세요." },
-  ];
-
-  function showError(inputId, text) {
-    const el = form.querySelector(`.field-error[data-for="${inputId}"]`);
-    if (el) el.textContent = text || "";
-  }
-
-  function validate() {
-    let ok = true;
-    const name = form.elements.namedItem("name");
-    const email = form.elements.namedItem("email");
-    const message = form.elements.namedItem("message");
-
-    showError("name", "");
-    showError("email", "");
-    showError("message", "");
-
-    if (!name.value.trim() || name.value.trim().length < 2) {
-      showError("name", fields[0].message);
-      ok = false;
-    }
-
-    const emailRe = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!email.value.trim() || !emailRe.test(email.value.trim())) {
-      showError("email", fields[1].message);
-      ok = false;
-    }
-
-    if (!message.value.trim() || message.value.trim().length < 10) {
-      showError("message", fields[2].message);
-      ok = false;
-    }
-
-    return ok;
-  }
-
-  form.addEventListener("submit", (e) => {
-    e.preventDefault();
-    if (!validate()) return;
-
-    if (success) {
-      success.hidden = false;
-      form.reset();
-      success.focus();
-    }
-  });
-}
-
 function initYear() {
   const y = document.getElementById("year");
   if (y) y.textContent = String(new Date().getFullYear());
@@ -203,6 +146,5 @@ function initYear() {
 document.addEventListener("DOMContentLoaded", () => {
   renderProjects();
   initNav();
-  initContactForm();
   initYear();
 });
