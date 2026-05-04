@@ -7,7 +7,7 @@ const projects = [
     title: "축제 홍보 마케팅 AI 에이전트",
     description:
       "축제 기획서 기반으로 포스터ㆍ마스코트ㆍ파생 홍보물을 자동 생성하고, 생성 결과를 한곳에서 관리하는 AI 기반 축제 홍보 지원 서비스입니다.",
-    tags: ["Python", "OpenAI API", "Replicate API", "FastAPI", "React"],
+    tags: ["Python", "OpenAI API", "Replicate API", "FastAPI", "React", "MySQL"],
     // 레포 루트 기준 상대 경로 — GitHub Pages에 올려도 같은 폴더 구조면 그대로 동작합니다.
     image: "assets/images/김현수_AI 서비스 포트폴리오.png",
     links: {
@@ -17,29 +17,42 @@ const projects = [
     },
   },
   {
-    title: "데이터 시각화 대시보드",
+    title: "2D Game Portfolio",
     description:
-      "데모 영상과 소스 코드를 함께 공개합니다. 실제 PDF는 본인 파일 경로로 바꿔 주세요.",
-    tags: ["JavaScript", "D3"],
+      "VisualStudio와 C, C++을 이용해 2D 게임을 만들어보았습니다.",
+    tags: ["VisualStudio", "C", "C++"],
     image:
-      "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&q=80",
+      "assets/images/김현수_2D게임 포트폴리오.png",
     links: {
       pdf: "",
-      youtube: "https://www.youtube.com/watch?v=aqz-KE-bpKQ",
-      github: "https://github.com/topics/dashboard",
+      youtube: "https://www.youtube.com/watch?v=hMxmzXZlqjM",
+      github: "https://github.com/khs0808sky/2D_Portfolio",
     },
   },
   {
-    title: "모바일 앱 프로토타입",
+    title: "3D Game Portfolio",
     description:
-      "피그마 내보내기 PDF와 깃허브에 올린 스마트 컴포넌트 예제를 연결한 카드입니다.",
-    tags: ["Figma", "React"],
+      "UnrealEngine5와, C++, Blueprint 기술을 이용해 3D게임을 만들어보았습니다.",
+    tags: ["UnrealEngine5", "React"],
     image:
-      "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?w=800&q=80",
+      "assets/images/김현수_3D게임 포트폴리오.png",
     links: {
-      pdf: "https://www.aeee.in/wp-content/uploads/2020/08/Sample-pdf.pdf",
+      pdf: "",
+      youtube: "https://www.youtube.com/watch?v=fQB9BXtaZUk&t=33s",
+      github: "https://github.com/khs0808sky/3D_Portfolio",
+    },
+  },
+  {
+    title: "흉부 수술 환자 임상 정보 기반 1년 내 사망 여부 예측 딥러닝 프로젝트",
+    description:
+      "공개 의료 표 데이터 기반으로 이진 분류하는 딥러닝 프로젝트를 개인적으로 공부해보았습니다.",
+    tags: ["Python", "Google Colab", "Tensorflow / Keras"],
+    image:
+      "assets/images/김현수_딥러닝 개인 프로젝트.png",
+    links: {
+      pdf: "assets/docs/김현수_딥러닝 개인 프로젝트.pdf",
       youtube: "",
-      github: "https://github.com/facebook/react",
+      github: "",
     },
   },
 ];
