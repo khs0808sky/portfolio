@@ -4,16 +4,16 @@
  */
 const projects = [
   {
-    title: "브랜드 리디자인 케이스 스터디",
+    title: "축제 홍보 마케팅 AI 에이전트",
     description:
-      "사용자 리서치와 와이어프레임을 바탕으로 한 UI 리뉴얼 과정을 PDF로 정리했습니다.",
-    tags: ["UI", "Research"],
-    image:
-      "https://images.unsplash.com/photo-1561070791-2526d30994b5?w=800&q=80",
+      "축제 기획서 기반으로 포스터ㆍ마스코트ㆍ파생 홍보물을 자동 생성하고, 생성 결과를 한곳에서 관리하는 AI 기반 축제 홍보 지원 서비스입니다.",
+    tags: ["Python", "OpenAI API", "Replicate API", "FastAPI", "React"],
+    // 레포 루트 기준 상대 경로 — GitHub Pages에 올려도 같은 폴더 구조면 그대로 동작합니다.
+    image: "assets/images/김현수_AI 서비스 포트폴리오.png",
     links: {
-      pdf: "https://www.w3.org/WAI/WCAG21/Techniques/pdf/img/table-word.pdf",
-      youtube: "https://www.youtube.com/watch?v=Ke90Tje7VS0",
-      github: "https://github.com/",
+      pdf: "assets/docs/김현수_AI서비스 포트폴리오.pdf",
+      youtube: "https://www.youtube.com/watch?v=hFaCz4H10OM",
+      github: "https://github.com/aica-acc/",
     },
   },
   {
@@ -54,7 +54,7 @@ function buildLinkPill(href, label, iconKey) {
   if (!href || !String(href).trim()) return "";
   const icon = ICONS[iconKey] || "";
   return `<a class="link-pill" href="${escapeAttr(
-    href
+    safeAssetHref(href)
   )}" target="_blank" rel="noopener noreferrer">${icon}<span>${label}</span></a>`;
 }
 
@@ -63,6 +63,14 @@ function escapeAttr(str) {
     .replace(/&/g, "&amp;")
     .replace(/"/g, "&quot;")
     .replace(/</g, "&lt;");
+}
+
+/** 레포 안 assets/… 경로(한글·공백 포함)를 브라우저에서 안전하게 쓰기 위해 경로 조각만 인코딩합니다. http(s) URL은 그대로 둡니다. */
+function safeAssetHref(href) {
+  const s = String(href).trim();
+  if (!s) return "";
+  if (/^https?:\/\//i.test(s)) return s;
+  return s.split("/").map(encodeURIComponent).join("/");
 }
 
 function escapeHtml(str) {
@@ -95,7 +103,7 @@ function renderProjects() {
 
       const thumb = p.image
         ? `<div class="project-thumb"><img src="${escapeAttr(
-            p.image
+            safeAssetHref(p.image)
           )}" alt="" loading="lazy" width="800" height="500" /></div>`
         : "";
 
