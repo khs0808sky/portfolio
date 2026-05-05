@@ -7,7 +7,7 @@ const projects = [
     title: "축제 홍보 마케팅 AI 에이전트",
     description:
       "지역 축제 기획서와 행사 정보를 기반으로 포스터, 마스코트, 파생 홍보물을 자동 생성하는 AI 서비스입니다. OpenAI API로 행사 정보를 분석하고 프롬프트를 생성했으며, Replicate API를 통해 이미지 생성 결과를 받아와 웹 화면에서 확인하고 관리할 수 있도록 구성했습니다.",
-    tags: ["Python", "OpenAI API", "Replicate API", "FastAPI", "React", "MySQL"],
+    tags: ["Python", "OpenAI API", "Replicate API", "FastAPI", "React", "MySQL", "Git"],
     // 레포 루트 기준 상대 경로 — GitHub Pages에 올려도 같은 폴더 구조면 그대로 동작합니다.
     image: "assets/images/김현수_AI 서비스 포트폴리오.png",
     links: {
@@ -20,7 +20,7 @@ const projects = [
     title: "2D Game Portfolio",
     description:
     "C/C++ 기반으로 제작한 2D 게임 프로젝트입니다. 캐릭터 이동과 충돌 처리를 구현하고, 충돌 결과에 따라 일반 마리오, 파이어 마리오, 미니 마리오로 상태가 변화하도록 구성했습니다. 또한 몬스터 처치, 남은 시간 관리, 게임 오버 및 클리어 상태에 따른 화면 연출을 구현했습니다.",
-    tags: ["Visual Studio", "C", "C++"],
+    tags: ["Visual Studio", "C", "C++", "Git"],
     image:
       "assets/images/김현수_2D게임 포트폴리오.png",
     links: {
@@ -33,7 +33,7 @@ const projects = [
     title: "3D Game Portfolio",
     description:
       "공개 에셋을 활용해 맵, 캐릭터, 보스 몬스터를 구성한 3D 액션 게임 프로젝트입니다. 캐릭터 이동, 점프, 구르기, 공격, 피격 이펙트, 체력 UI, 락온, 물약 사용, 게임 오버 및 클리어 화면을 구현했습니다. 몬스터는 AI Controller를 활용해 추적, 공격, 체력 50% 이하 진화, 강화 공격 등 페이즈 기반 패턴으로 구성했습니다.",
-    tags: ["UnrealEngine5", "React"],
+    tags: ["UnrealEngine5", "C++", "Blueprint", "Git"],
     image:
       "assets/images/김현수_3D게임 포트폴리오.png",
     links: {
@@ -59,7 +59,7 @@ const projects = [
     title: "Cursor AI를 활용한 개인 포트폴리오 웹사이트 제작",
     description:
       "저의 소개, 경험, 자격·수상, 기술 스택, 프로젝트를 한곳에서 확인할 수 있도록 만든 개인 포트폴리오 웹사이트입니다. Cursor AI를 활용해 기본 구조를 만들고, 문구와 화면 구성을 직접 수정하며 웹사이트 제작 흐름을 학습했습니다.",
-    tags: ["HTML", "CSS", "JavaScript", "Cursor AI"], 
+    tags: ["HTML", "CSS", "JavaScript", "Cursor AI", "Git"], 
     image:
       "assets/images/김현수_Cursor AI 개인 프로젝트.png",
     links: {
