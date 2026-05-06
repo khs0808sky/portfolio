@@ -65,7 +65,7 @@ const projects = [
     links: {
       pdf: "assets/docs/김현수_Cursor AI 개인 프로젝트.pdf",
       youtube: "",
-      github: "",
+      github: "https://github.com/khs0808sky/portfolio",
     },
   },
 ];
@@ -156,7 +156,8 @@ function initNav() {
     header.classList.toggle("is-open", open);
     toggle.setAttribute("aria-expanded", open ? "true" : "false");
     toggle.setAttribute("aria-label", open ? "메뉴 닫기" : "메뉴 열기");
-    document.body.style.overflow = open ? "hidden" : "";
+    // 모바일 메뉴가 전체 화면을 덮지 않으므로, 기본 스크롤은 막지 않습니다.
+    document.body.style.overflow = "";
   }
 
   toggle.addEventListener("click", () => {
