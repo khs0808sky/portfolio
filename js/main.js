@@ -190,8 +190,51 @@ function initYear() {
   if (y) y.textContent = String(new Date().getFullYear());
 }
 
+/** getDay(): 0=일 … 6=토 */
+const WEEKDAYS_KO_SHORT = ["일", "월", "화", "수", "목", "금", "토"];
+
+function formatHeaderDate(d) {
+  const yyyy = String(d.getFullYear());
+  const mm = String(d.getMonth() + 1).padStart(2, "0");
+  const dd = String(d.getDate()).padStart(2, "0");
+  const wd = WEEKDAYS_KO_SHORT[d.getDay()];
+  return `${yyyy}. ${mm}. ${dd} (${wd})`;
+}
+
+function formatHeaderTime(d) {
+  const hh = String(d.getHours()).padStart(2, "0");
+  const mi = String(d.getMinutes()).padStart(2, "0");
+  const ss = String(d.getSeconds()).padStart(2, "0");
+  return `${hh} : ${mi} : ${ss}`;
+}
+
+function initHeaderDateTime() {
+  const dateEl = document.getElementById("header-date-part");
+  const timeEl = document.getElementById("header-time-part");
+  if (!dateEl || !timeEl) return;
+
+  const tick = () => {
+    const now = new Date();
+    dateEl.textContent = formatHeaderDate(now);
+    timeEl.textContent = formatHeaderTime(now);
+  };
+
+  tick();
+  window.setInterval(tick, 1000);
+}
+
 function prefersReducedMotion() {
   return window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+}
+
+/** 히어로 루프 영상: ‘움직임 줄이기’에서는 재생 안 함 */
+function initHeroBgVideo() {
+  const v = document.querySelector(".hero-bg__video");
+  if (!v) return;
+  if (prefersReducedMotion()) {
+    v.removeAttribute("autoplay");
+    v.pause();
+  }
 }
 
 /** 맨 위로 — 앵커(#top) + 항상 scrollY=0으로 이동(스티키 헤더 id 사용 시 깨지는 현상 방지) */
@@ -212,5 +255,7 @@ document.addEventListener("DOMContentLoaded", () => {
   renderProjects();
   initNav();
   initYear();
+  initHeaderDateTime();
+  initHeroBgVideo();
   initScrollToTopAnchors();
 });

@@ -27,6 +27,17 @@
           <span class="logo-text">KHS Portfolio</span>
         </a>
 
+        <div
+          class="header-datetime"
+          role="status"
+          aria-live="polite"
+          aria-label="현재 날짜와 시간"
+        >
+          <span class="header-datetime__date" id="header-date-part">---. --. -- (-)</span>
+          <span class="header-datetime__sep" aria-hidden="true"></span>
+          <span class="header-datetime__time" id="header-time-part">-- : -- : --</span>
+        </div>
+
         <button
           class="nav-toggle"
           type="button"
@@ -53,7 +64,19 @@
 
     <main id="main">
       <section class="hero" aria-labelledby="hero-title">
-        <div class="hero-bg" role="img" aria-label="추상적인 그라데이션 배경"></div>
+        <div class="hero-bg" aria-hidden="true">
+          <video
+            class="hero-bg__video"
+            autoplay
+            muted
+            loop
+            playsinline
+            preload="auto"
+          >
+            <source src="assets/videos/loop_background_1.mp4" type="video/mp4" />
+          </video>
+          <div class="hero-bg__tint" aria-hidden="true"></div>
+        </div>
         <div class="container hero-inner">
           <h1 class="hero-title" id="hero-title">
             안녕하세요! <br>신입 개발자 <span class="gradient-text">김현수</span>입니다.
@@ -64,12 +87,17 @@
             직접 구현한 결과물과 과정을 포트폴리오로 정리했습니다.<br><br>
             프로젝트를 둘러보세요.
           </p>
-          <div class="hero-actions">
-            <a class="btn btn-ghost hero-nav-btn" href="#about">소개</a>
-            <a class="btn btn-ghost hero-nav-btn" href="#experience">경험</a>
-            <a class="btn btn-ghost hero-nav-btn" href="#credentials">자격 · 수상</a>
-            <a class="btn btn-ghost hero-nav-btn" href="#skills">기술 스택</a>
-            <a class="btn btn-primary hero-nav-btn" href="#projects">프로젝트 보기</a>
+          <div class="hero-actions" role="navigation" aria-label="섹션 바로가기">
+            <a
+              class="btn btn-primary hero-nav-btn hero-nav-btn--primary"
+              href="#projects"
+            >
+              프로젝트 보기
+            </a>
+            <a class="hero-nav-link" href="#about">소개</a>
+            <a class="hero-nav-link" href="#experience">경험</a>
+            <a class="hero-nav-link" href="#credentials">자격 · 수상</a>
+            <a class="hero-nav-link" href="#skills">기술 스택</a>
           </div>
         </div>
         <div class="hero-scroll-hint" aria-hidden="true">
