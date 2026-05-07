@@ -68,6 +68,18 @@ const projects = [
       github: "https://github.com/khs0808sky/portfolio",
     },
   },
+  {
+    title: "서울 생활 가이드 PDF 기반 RAG 챗봇",
+    description: "서울 생활 가이드 PDF를 chunk 단위로 처리하고 ChromaDB에 저장한 뒤, 사용자 질문과 관련된 문서를 검색해 LLM이 답변하는 RAG 챗봇입니다. FastAPI와 React를 연결해 웹 화면에서 질문응답과 참고 문서 확인이 가능하도록 구현했습니다.",
+    tags: ["Python", "FastAPI", "LangChain", "ChromaDB", "OpenAI API", "React", "Vite", "Cursor AI"],
+    image:
+      "assets/images/김현수_RAG 개인 프로젝트.png",
+    links: {
+      pdf: "assets/docs/김현수_RAG 개인 프로젝트.pdf",
+      youtube: "",
+      github: "https://github.com/khs0808sky/seoul_rag_chatbot",
+    },
+  },
 ];
 
 const ICONS = {
