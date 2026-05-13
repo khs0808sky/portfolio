@@ -80,6 +80,18 @@ const projects = [
       github: "https://github.com/khs0808sky/seoul_rag_chatbot",
     },
   },
+  {
+    title: "청년 주거 안전 지원 AI 에이전트",
+    description: "LangGraph와 RAG를 활용해 청년월세지원 및 전세계약 안전 관련 질문을 분류하고, 관련 PDF 문서를 검색해 근거 기반 답변을 제공하는 AI 상담 서비스입니다.",
+    tags: ["Python", "LangGraph", "RAG", "FastAPI", "React", "ChromaDB", "OpenAI API", "Git"],
+    image:
+      "assets/images/김현수_LangGraph_개인프로젝트.png",
+    links: {
+      pdf: "assets/docs/김현수_LangGraph_개인프로젝트.pdf",
+      youtube: "",
+      github: "https://github.com/khs0808sky/youth-life-agent",
+    },
+  },
 ];
 
 const ICONS = {
