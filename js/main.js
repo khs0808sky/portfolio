@@ -92,6 +92,18 @@ const projects = [
       github: "https://github.com/khs0808sky/youth-life-agent",
     },
   },
+  {
+    title: "오늘 뭐 먹지?",
+    description: "LangChain을 활용해 사용자의 기분, 날씨, 위치를 반영한 메뉴 추천과 주변 식당 탐색을 제공하는 풀스택 AI 서비스입니다. 사용자 입력을 분석해 프롬프트를 생성하고, 외부 API로 메뉴와 식당 정보를 받아와 웹 화면에서 확인할 수 있도록 구성했습니다.",
+    tags: [ "React", "FastAPI", "Python", "LangChain", "GPT-4o-mini", "Kakao API", "OpenWeatherMap", "Vercel", "Railway" ],
+    image:
+      "assets/images/김현수_Claude_개인프로젝트.png",
+    links: {
+      pdf: "assets/docs/김현수_Claude_개인프로젝트.pdf",
+      youtube: "",
+      github: "https://github.com/khs0808sky/today-menu",
+    },
+  },
 ];
 
 const ICONS = {
