@@ -104,6 +104,18 @@ const projects = [
       github: "https://github.com/khs0808sky/today-menu",
     },
   },
+  {
+    title: "Cafe Order Service",
+    description: "Java Spring Boot와 JPA를 사용해 메뉴 관리, 주문 생성, 주문 상태 변경, 일별 매출 조회 기능을 구현한 카페 주문 관리 백엔드 프로젝트입니다.",
+    tags: ["Java", "Spring Boot", "JPA", "REST API", "H2 Database", "Swagger"],
+    image:
+      "assets/images/김현수_Java_Spring_개인프로젝트.png",
+    links: {
+      pdf: "assets/docs/김현수_Java_Spring_개인프로젝트.pdf",
+      youtube: "",
+      github: "https://github.com/khs0808sky/cafe-order-service",
+    },
+  },
 ];
 
 const ICONS = {
