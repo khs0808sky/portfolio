@@ -182,7 +182,7 @@ function renderProjects() {
         : "";
 
       return `
-        <article class="project-card">
+        <article class="project-card" data-reveal>
           ${thumb}
           <div class="project-meta">${tags}</div>
           <h3 class="project-title">${escapeHtml(p.title)}</h3>
@@ -287,6 +287,48 @@ function initScrollToTopAnchors() {
   });
 }
 
+/**
+ * 스크롤 리빌 — [data-reveal] 요소가 뷰포트에 들어오면 페이드 + 위로 슬라이드.
+ * 같은 부모(그리드) 안에서는 순서대로 살짝씩 지연을 줘서 스태거 효과를 냅니다.
+ * JS/IntersectionObserver가 없거나 '움직임 줄이기' 설정이면 즉시 모두 보여 줍니다.
+ */
+function initScrollReveal() {
+  const items = Array.from(document.querySelectorAll("[data-reveal]"));
+  if (!items.length) return;
+
+  if (prefersReducedMotion() || !("IntersectionObserver" in window)) {
+    items.forEach((el) => el.classList.add("is-visible"));
+    return;
+  }
+
+  const STAGGER_STEP = 0.08;
+  const STAGGER_MAX = 5;
+  const counters = new Map();
+
+  items.forEach((el) => {
+    const parent = el.parentElement;
+    const count = counters.get(parent) || 0;
+    counters.set(parent, count + 1);
+    const delay = Math.min(count, STAGGER_MAX) * STAGGER_STEP;
+    el.style.setProperty("--reveal-delay", `${delay}s`);
+    el.classList.add("reveal");
+  });
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-visible");
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
+  );
+
+  items.forEach((el) => observer.observe(el));
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderProjects();
   initNav();
@@ -294,4 +336,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initHeaderDateTime();
   initHeroBgVideo();
   initScrollToTopAnchors();
+  initScrollReveal();
 });
