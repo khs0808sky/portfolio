@@ -182,7 +182,7 @@ function renderProjects() {
         : "";
 
       return `
-        <article class="project-card" data-reveal>
+        <article class="project-card" data-reveal="up">
           ${thumb}
           <div class="project-meta">${tags}</div>
           <h3 class="project-title">${escapeHtml(p.title)}</h3>
@@ -288,24 +288,43 @@ function initScrollToTopAnchors() {
 }
 
 /**
- * 스크롤 리빌 — [data-reveal] 요소가 뷰포트에 들어오면 페이드 + 위로 슬라이드.
- * 같은 부모(그리드) 안에서는 순서대로 살짝씩 지연을 줘서 스태거 효과를 냅니다.
+ * 스크롤 리빌 — [data-reveal] 요소가 뷰포트에 들어오면 나타납니다.
+ * data-reveal 값으로 기법을 고릅니다: fade / up(기본) / down / left / right / scale / blur.
+ *
+ * [data-reveal-group]로 감싼 묶음(타임라인, 자격증 카드, 기술 스택 그룹 등)은
+ * 묶음 컨테이너 하나만 관찰해서, 안의 항목이 하나씩 스크롤 위치에 따라 따로따로
+ * 나타나지 않고 묶음이 뷰포트에 들어오는 순간 한꺼번에(약간의 스태거만 두고) 나타납니다.
+ * 묶음이 아닌 단일 요소는 각자 뷰포트에 들어올 때 개별적으로 나타납니다.
+ *
  * JS/IntersectionObserver가 없거나 '움직임 줄이기' 설정이면 즉시 모두 보여 줍니다.
  */
 function initScrollReveal() {
-  const items = Array.from(document.querySelectorAll("[data-reveal]"));
-  if (!items.length) return;
+  const groups = Array.from(document.querySelectorAll("[data-reveal-group]"));
+  const groupedItems = new Set();
+  groups.forEach((group) => {
+    group
+      .querySelectorAll("[data-reveal]")
+      .forEach((el) => groupedItems.add(el));
+  });
+
+  const singleItems = Array.from(
+    document.querySelectorAll("[data-reveal]")
+  ).filter((el) => !groupedItems.has(el));
+
+  if (!singleItems.length && !groups.length) return;
 
   if (prefersReducedMotion() || !("IntersectionObserver" in window)) {
-    items.forEach((el) => el.classList.add("is-visible"));
+    singleItems.forEach((el) => el.classList.add("is-visible"));
+    groupedItems.forEach((el) => el.classList.add("is-visible"));
     return;
   }
 
   const STAGGER_STEP = 0.08;
   const STAGGER_MAX = 5;
-  const counters = new Map();
 
-  items.forEach((el) => {
+  // 단일 요소: 같은 부모 안에서 순서대로 스태거
+  const counters = new Map();
+  singleItems.forEach((el) => {
     const parent = el.parentElement;
     const count = counters.get(parent) || 0;
     counters.set(parent, count + 1);
@@ -314,19 +333,36 @@ function initScrollReveal() {
     el.classList.add("reveal");
   });
 
+  // 묶음 요소: 묶음 안에서 순서대로 스태거(트리거는 묶음 전체가 담당)
+  groups.forEach((group) => {
+    const children = Array.from(group.querySelectorAll("[data-reveal]"));
+    children.forEach((el, i) => {
+      const delay = Math.min(i, STAGGER_MAX) * STAGGER_STEP;
+      el.style.setProperty("--reveal-delay", `${delay}s`);
+      el.classList.add("reveal");
+    });
+  });
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-visible");
-          observer.unobserve(entry.target);
+        if (!entry.isIntersecting) return;
+        const target = entry.target;
+        if (target.hasAttribute("data-reveal-group")) {
+          target
+            .querySelectorAll("[data-reveal]")
+            .forEach((el) => el.classList.add("is-visible"));
+        } else {
+          target.classList.add("is-visible");
         }
+        observer.unobserve(target);
       });
     },
     { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
   );
 
-  items.forEach((el) => observer.observe(el));
+  singleItems.forEach((el) => observer.observe(el));
+  groups.forEach((group) => observer.observe(group));
 }
 
 document.addEventListener("DOMContentLoaded", () => {

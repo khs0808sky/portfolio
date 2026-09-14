@@ -25,6 +25,8 @@
 
 html {
   scroll-behavior: smooth;
+  /* 리빌 애니메이션의 좌우 슬라이드가 화면 밖으로 나가며 생기는 일시적 가로 스크롤 방지 */
+  overflow-x: hidden;
 }
 
 body {
@@ -970,19 +972,49 @@ a:hover {
   color: var(--accent-2);
 }
 
-/* ===== 스크롤 리빌 애니메이션 ===== */
+/* ===== 스크롤 리빌 애니메이션 =====
+   data-reveal 값으로 기법을 고름: fade(페이드만) / up(기본, 아래→위)
+   down(위→아래) / left(왼쪽에서) / right(오른쪽에서) / scale(확대) / blur(블러+업) */
 .reveal {
   opacity: 0;
   transform: translateY(28px);
+  filter: blur(0);
   transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1),
-    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+    transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
   transition-delay: var(--reveal-delay, 0s);
-  will-change: opacity, transform;
+  will-change: opacity, transform, filter;
 }
 
+.reveal[data-reveal="fade"] {
+  transform: none;
+}
+
+.reveal[data-reveal="down"] {
+  transform: translateY(-24px);
+}
+
+.reveal[data-reveal="left"] {
+  transform: translateX(-44px);
+}
+
+.reveal[data-reveal="right"] {
+  transform: translateX(44px);
+}
+
+.reveal[data-reveal="scale"] {
+  transform: scale(0.9);
+}
+
+.reveal[data-reveal="blur"] {
+  transform: translateY(16px);
+  filter: blur(14px);
+}
+
+/* 명세도가 위 기법별 규칙과 같으므로, 항상 이기도록 아래(나중)에 둡니다 */
 .reveal.is-visible {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateY(0) translateX(0) scale(1);
+  filter: blur(0);
 }
 
 /* ===== 반응형 ===== */

@@ -108,8 +108,8 @@
 
       <section class="section about" id="about" aria-labelledby="about-title">
         <div class="container">
-          <h2 class="section-title" id="about-title" data-reveal>소개</h2>
-          <p class="about-text" data-reveal>
+          <h2 class="section-title" id="about-title" data-reveal="down">소개</h2>
+          <p class="about-text" data-reveal="fade">
             웹 개발, 게임 개발, AI 서비스 개발을 학습하며 다양한 프로젝트를 경험해 온 신입 개발자 김현수입니다.<br>
             Java Spring Boot, Python FastAPI, MySQL, React 등을 활용해 웹 서비스 구조를 학습했고, AI API를 활용한 이미지 생성 서비스와 게임 개발 프로젝트를 진행했습니다.<br>
             단순히 결과물만 만드는 것보다, 프론트엔드와 백엔드, AI 기능이 어떻게 연결되는지 이해하고 직접 구현해보는 데 집중해왔습니다.<br>
@@ -123,27 +123,27 @@
         aria-labelledby="experience-title"
       >
         <div class="container">
-          <h2 class="section-title" id="experience-title" data-reveal>경험 · 활동</h2>
-          <p class="section-lead" data-reveal>
+          <h2 class="section-title" id="experience-title" data-reveal="down">경험 · 활동</h2>
+          <p class="section-lead" data-reveal="fade">
             개발 학습과 교육 과정을 연도별로 정리했습니다.
           </p>
-          <div class="experience-layout">
+          <div class="experience-layout" data-reveal-group>
             <ol class="timeline" aria-label="연도별 경험">
-              <li class="timeline-item" data-reveal>
+              <li class="timeline-item" data-reveal="left">
                 <span class="timeline-year">2023</span>
                 <div class="timeline-body">
                   <h3 class="timeline-heading">코리아 IT 아카데미</h3>
                   <p class="timeline-desc">웹 개발 교육 이수</p>
                 </div>
               </li>
-              <li class="timeline-item" data-reveal>
+              <li class="timeline-item" data-reveal="left">
                 <span class="timeline-year">2024</span>
                 <div class="timeline-body">
                   <h3 class="timeline-heading">SGA 서울 게임 아카데미</h3>
                   <p class="timeline-desc">게임 개발 교육 이수</p>
                 </div>
               </li>
-              <li class="timeline-item" data-reveal>
+              <li class="timeline-item" data-reveal="left">
                 <span class="timeline-year">2025</span>
                 <div class="timeline-body">
                   <h3 class="timeline-heading">광주 인공지능사관학교</h3>
@@ -154,7 +154,7 @@
             <aside
               class="education-aside"
               aria-labelledby="education-aside-title"
-              data-reveal
+              data-reveal="right"
             >
               <h3 class="education-aside-title" id="education-aside-title">
                 학력
@@ -180,12 +180,12 @@
         aria-labelledby="credentials-title"
       >
         <div class="container">
-          <h2 class="section-title" id="credentials-title" data-reveal>자격증 · 수상</h2>
-          <p class="section-lead" data-reveal>
+          <h2 class="section-title" id="credentials-title" data-reveal="down">자격증 · 수상</h2>
+          <p class="section-lead" data-reveal="fade">
             취득한 자격증과 수상 실적입니다.
           </p>
-          <div class="credentials-grid">
-            <div class="credential-card" data-reveal>
+          <div class="credentials-grid" data-reveal-group>
+            <div class="credential-card" data-reveal="scale">
               <h3 class="credential-card-title">자격증</h3>
               <ul class="credential-list">
                 <li>
@@ -197,7 +197,7 @@
                 </li>
               </ul>
             </div>
-            <div class="credential-card" data-reveal>
+            <div class="credential-card" data-reveal="scale">
               <h3 class="credential-card-title">수상 · 활동</h3>
               <ul class="credential-list">
                 <li>
@@ -216,17 +216,17 @@
 
       <section class="section skills" id="skills" aria-labelledby="skills-title">
         <div class="container">
-          <h2 class="section-title" id="skills-title" data-reveal>기술 스택</h2>
-          <p class="section-lead" data-reveal>
+          <h2 class="section-title" id="skills-title" data-reveal="down">기술 스택</h2>
+          <p class="section-lead" data-reveal="fade">
             웹, 게임, AI 작업에 사용하는 기술을 한곳에 모았습니다.
           </p>
-          <p class="skills-hover-hint" id="skills-hover-hint" data-reveal>
+          <p class="skills-hover-hint" id="skills-hover-hint" data-reveal="fade">
             각 기술 태그에 <strong>마우스를 올리거나</strong> 키보드
             <strong>Tab</strong>으로 포커스를 주면, 해당 기술을 어떻게
             공부·실습했는지 설명이 나타납니다.
           </p>
-          <div class="skill-groups">
-            <div class="skill-group" data-reveal>
+          <div class="skill-groups" data-reveal-group>
+            <div class="skill-group" data-reveal="blur">
               <h3 class="skill-group-title">웹 개발</h3>
               <ul class="skill-tags" aria-label="웹 개발 기술" aria-describedby="skills-hover-hint">
                 <li
@@ -273,7 +273,7 @@
                 </li>
               </ul>
             </div>
-            <div class="skill-group" data-reveal>
+            <div class="skill-group" data-reveal="blur">
               <h3 class="skill-group-title">게임 개발</h3>
               <ul class="skill-tags" aria-label="게임 개발 기술" aria-describedby="skills-hover-hint">
                 <li
@@ -308,7 +308,7 @@
                 </li>
               </ul>
             </div>
-            <div class="skill-group" data-reveal>
+            <div class="skill-group" data-reveal="blur">
               <h3 class="skill-group-title">AI 서비스 개발</h3>
               <ul class="skill-tags" aria-label="AI 서비스 개발 기술" aria-describedby="skills-hover-hint">
                 <li
@@ -391,7 +391,7 @@
                 </li>
               </ul>
             </div>
-            <div class="skill-group" data-reveal>
+            <div class="skill-group" data-reveal="blur">
               <h3 class="skill-group-title">Tools</h3>
               <ul class="skill-tags" aria-label="도구" aria-describedby="skills-hover-hint">
                 <li
@@ -454,8 +454,8 @@
         aria-labelledby="projects-title"
       >
         <div class="container">
-          <h2 class="section-title" id="projects-title" data-reveal>프로젝트</h2>
-          <p class="section-lead" data-reveal>
+          <h2 class="section-title" id="projects-title" data-reveal="down">프로젝트</h2>
+          <p class="section-lead" data-reveal="fade">
             문서·영상·깃허브 링크를 각 카드에서 바로 열 수 있습니다.
           </p>
           <div class="project-grid" id="project-grid">
