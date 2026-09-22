@@ -560,6 +560,46 @@ function initHeroStats() {
   nums.forEach((el) => observer.observe(el));
 }
 
+/**
+ * 기술 태그 툴팁 화면 밖 잘림 방지 — 툴팁은 태그를 기준으로 가운데 정렬되는데,
+ * 카드가 화면 가로 폭 대부분을 차지하는 모바일에서는 가장자리 태그의 툴팁이
+ * 뷰포트 밖으로 넘어가 잘릴 수 있습니다. 포인터가 올라가거나 포커스될 때
+ * 실제 툴팁 너비를 읽어 필요한 만큼만 --tip-shift로 좌우 보정합니다.
+ */
+function initSkillTooltipEdgeGuard() {
+  const items = document.querySelectorAll(".skill-tags li[data-study]");
+  if (!items.length) return;
+
+  const MARGIN = 12;
+
+  const adjust = (li) => {
+    li.style.setProperty("--tip-shift", "0px");
+    const liRect = li.getBoundingClientRect();
+    const tipWidth = parseFloat(
+      window.getComputedStyle(li, "::after").width
+    );
+    if (!tipWidth || Number.isNaN(tipWidth)) return;
+
+    const center = liRect.left + liRect.width / 2;
+    const left = center - tipWidth / 2;
+    const right = left + tipWidth;
+    let shift = 0;
+
+    if (left < MARGIN) {
+      shift = MARGIN - left;
+    } else if (right > window.innerWidth - MARGIN) {
+      shift = window.innerWidth - MARGIN - right;
+    }
+
+    if (shift) li.style.setProperty("--tip-shift", `${shift}px`);
+  };
+
+  items.forEach((li) => {
+    li.addEventListener("pointerenter", () => adjust(li));
+    li.addEventListener("focusin", () => adjust(li));
+  });
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderProjects();
   initNav();
@@ -574,4 +614,5 @@ document.addEventListener("DOMContentLoaded", () => {
   initHeroCursorGlow();
   initCardTiltGlow();
   initHeroStats();
+  initSkillTooltipEdgeGuard();
 });

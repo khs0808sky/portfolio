@@ -1079,7 +1079,9 @@ a:hover {
   pointer-events: none;
   opacity: 0;
   visibility: hidden;
-  transform: translateX(-50%) translateY(6px);
+  /* --tip-shift는 화면 가장자리에 가까운 태그의 툴팁이 뷰포트 밖으로
+     잘려 나가지 않도록 js가 계산해 넣어주는 보정값입니다(js/main.js 참고) */
+  transform: translateX(calc(-50% + var(--tip-shift, 0px))) translateY(6px);
   transition: opacity 0.2s ease, visibility 0.2s ease, transform 0.2s ease;
   border-radius: var(--radius);
   border: 1px solid rgba(124, 108, 249, 0.35);
@@ -1091,7 +1093,7 @@ a:hover {
 .skill-tags li[data-study]:focus-visible::after {
   opacity: 1;
   visibility: visible;
-  transform: translateX(-50%) translateY(0);
+  transform: translateX(calc(-50% + var(--tip-shift, 0px))) translateY(0);
 }
 
 /* ===== 프로젝트 카드 ===== */
@@ -1250,6 +1252,14 @@ a:hover {
 .glow-card {
   position: relative;
   isolation: isolate;
+}
+
+/* isolation이 만드는 새 쌓임 맥락 때문에, 카드 밖으로 넘치는 내용(기술 태그
+   툴팁 등)이 옆/아래 카드에 가려질 수 있어 호버·포커스 중에는 그 카드를
+   형제 카드들보다 위로 끌어올립니다 */
+.glow-card:hover,
+.glow-card:focus-within {
+  z-index: 3;
 }
 
 .glow-card::before {
@@ -1459,11 +1469,10 @@ a:hover {
     font-size: 1.25rem;
   }
 
+  /* 좁은 화면에서는 이 알약이 항상 화면 중앙에 절대 위치로 떠 있어서
+     로고 텍스트와 겹치므로(휴대폰엔 이미 시계가 있으니) 아예 숨깁니다 */
   .header-datetime {
-    min-width: 268px;
-    gap: 0.65rem;
-    font-size: 0.86rem;
-    padding: 0.4rem 0.75rem;
+    display: none;
   }
 
   .project-grid {
