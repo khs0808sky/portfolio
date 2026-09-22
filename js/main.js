@@ -401,33 +401,45 @@ function initScrollProgress() {
   update();
 }
 
-/** 네비게이션 스크롤스파이 — 현재 보고 있는 섹션의 메뉴를 강조합니다 */
+/**
+ * 네비게이션 스크롤스파이 — 현재 보고 있는 섹션에 해당하는 메뉴(상단 nav,
+ * 넓은 화면의 우측 점 인디케이터)를 함께 강조합니다.
+ */
 function initScrollSpy() {
-  const links = Array.from(
-    document.querySelectorAll('.nav-list a[href^="#"]')
+  const spyLinks = Array.from(
+    document.querySelectorAll('.nav-list a[href^="#"], .side-dot[href^="#"]')
   );
-  if (!links.length) return;
+  if (!spyLinks.length) return;
 
-  const sections = links
-    .map((link) => document.querySelector(link.getAttribute("href")))
+  const sectionIds = Array.from(
+    new Set(spyLinks.map((a) => a.getAttribute("href")))
+  );
+  const sections = sectionIds
+    .map((id) => document.querySelector(id))
     .filter(Boolean);
   if (!sections.length) return;
 
-  const linkBySection = new Map(
-    sections.map((section, i) => [section, links[i]])
+  const linksBySectionId = new Map(
+    sectionIds.map((id) => [
+      id,
+      spyLinks.filter((a) => a.getAttribute("href") === id),
+    ])
   );
 
   if (!("IntersectionObserver" in window)) return;
 
+  const setActive = (id) => {
+    spyLinks.forEach((a) => a.classList.remove("is-active"));
+    (linksBySectionId.get(id) || []).forEach((a) =>
+      a.classList.add("is-active")
+    );
+  };
+
   const observer = new IntersectionObserver(
     (entries) => {
       entries.forEach((entry) => {
-        const link = linkBySection.get(entry.target);
-        if (!link) return;
-        if (entry.isIntersecting) {
-          links.forEach((a) => a.classList.remove("is-active"));
-          link.classList.add("is-active");
-        }
+        if (!entry.isIntersecting) return;
+        setActive(`#${entry.target.id}`);
       });
     },
     { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
