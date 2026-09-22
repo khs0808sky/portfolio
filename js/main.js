@@ -182,7 +182,7 @@ function renderProjects() {
         : "";
 
       return `
-        <article class="project-card" data-reveal="up">
+        <article class="project-card glow-card" data-reveal="up">
           ${thumb}
           <div class="project-meta">${tags}</div>
           <h3 class="project-title">${escapeHtml(p.title)}</h3>
@@ -365,6 +365,189 @@ function initScrollReveal() {
   groups.forEach((group) => observer.observe(group));
 }
 
+/** 마우스로 조작 가능한 환경(터치 아님)이고 '움직임 줄이기'가 아닐 때만 포인터 추적 효과를 켭니다 */
+function canHoverPrecisely() {
+  return (
+    window.matchMedia("(hover: hover) and (pointer: fine)").matches &&
+    !prefersReducedMotion()
+  );
+}
+
+/** 스크롤 진행바 — 문서를 읽은 비율만큼 상단 바가 채워집니다 */
+function initScrollProgress() {
+  const bar = document.querySelector(".scroll-progress");
+  if (!bar) return;
+
+  let ticking = false;
+  const update = () => {
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const max =
+      document.documentElement.scrollHeight - window.innerHeight;
+    const ratio = max > 0 ? Math.min(1, Math.max(0, scrollTop / max)) : 0;
+    bar.style.transform = `scaleX(${ratio})`;
+    ticking = false;
+  };
+
+  window.addEventListener(
+    "scroll",
+    () => {
+      if (!ticking) {
+        window.requestAnimationFrame(update);
+        ticking = true;
+      }
+    },
+    { passive: true }
+  );
+  update();
+}
+
+/** 네비게이션 스크롤스파이 — 현재 보고 있는 섹션의 메뉴를 강조합니다 */
+function initScrollSpy() {
+  const links = Array.from(
+    document.querySelectorAll('.nav-list a[href^="#"]')
+  );
+  if (!links.length) return;
+
+  const sections = links
+    .map((link) => document.querySelector(link.getAttribute("href")))
+    .filter(Boolean);
+  if (!sections.length) return;
+
+  const linkBySection = new Map(
+    sections.map((section, i) => [section, links[i]])
+  );
+
+  if (!("IntersectionObserver" in window)) return;
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const link = linkBySection.get(entry.target);
+        if (!link) return;
+        if (entry.isIntersecting) {
+          links.forEach((a) => a.classList.remove("is-active"));
+          link.classList.add("is-active");
+        }
+      });
+    },
+    { rootMargin: "-45% 0px -50% 0px", threshold: 0 }
+  );
+
+  sections.forEach((section) => observer.observe(section));
+}
+
+/** 맨 위로 플로팅 버튼 — 일정 거리 이상 내려가면 나타납니다 */
+function initBackToTop() {
+  const btn = document.getElementById("back-to-top");
+  if (!btn) return;
+
+  const toggle = () => {
+    btn.classList.toggle("is-visible", window.scrollY > 480);
+  };
+
+  window.addEventListener("scroll", toggle, { passive: true });
+  toggle();
+
+  btn.addEventListener("click", () => {
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: prefersReducedMotion() ? "auto" : "smooth",
+    });
+  });
+}
+
+/** 히어로 배경의 커서 스포트라이트 — 마우스를 따라 은은한 빛이 이동합니다 */
+function initHeroCursorGlow() {
+  const hero = document.querySelector(".hero");
+  const glow = document.getElementById("hero-cursor-glow");
+  if (!hero || !glow || !canHoverPrecisely()) return;
+
+  hero.addEventListener("pointermove", (e) => {
+    const rect = hero.getBoundingClientRect();
+    const x = ((e.clientX - rect.left) / rect.width) * 100;
+    const y = ((e.clientY - rect.top) / rect.height) * 100;
+    glow.style.setProperty("--cx", `${x}%`);
+    glow.style.setProperty("--cy", `${y}%`);
+  });
+}
+
+/**
+ * 카드 스포트라이트 + 프로젝트 카드 3D 틸트
+ * [.glow-card] 요소는 마우스를 따라 은은한 빛이 이동하고,
+ * 그중 [.project-card]는 마우스 위치에 따라 살짝 입체적으로 기울어집니다.
+ */
+function initCardTiltGlow() {
+  if (!canHoverPrecisely()) return;
+
+  document.querySelectorAll(".glow-card").forEach((card) => {
+    const isProjectCard = card.classList.contains("project-card");
+    const maxTilt = 6;
+
+    card.addEventListener("pointermove", (e) => {
+      const rect = card.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      card.style.setProperty("--spot-x", `${(x / rect.width) * 100}%`);
+      card.style.setProperty("--spot-y", `${(y / rect.height) * 100}%`);
+
+      if (isProjectCard) {
+        const px = x / rect.width - 0.5;
+        const py = y / rect.height - 0.5;
+        card.style.setProperty("--tilt-y", `${px * maxTilt * 2}deg`);
+        card.style.setProperty("--tilt-x", `${-py * maxTilt * 2}deg`);
+      }
+    });
+
+    card.addEventListener("pointerleave", () => {
+      if (isProjectCard) {
+        card.style.setProperty("--tilt-x", "0deg");
+        card.style.setProperty("--tilt-y", "0deg");
+      }
+    });
+  });
+}
+
+/** 히어로 통계 카운트업 — 화면에 들어오면 0부터 목표 숫자까지 올라갑니다 */
+function initHeroStats() {
+  const nums = Array.from(document.querySelectorAll(".hero-stat-num[data-count]"));
+  if (!nums.length) return;
+
+  if (prefersReducedMotion() || !("IntersectionObserver" in window)) {
+    nums.forEach((el) => {
+      el.textContent = el.getAttribute("data-count");
+    });
+    return;
+  }
+
+  const animate = (el) => {
+    const target = parseInt(el.getAttribute("data-count"), 10) || 0;
+    const duration = 1100;
+    const start = performance.now();
+
+    const step = (now) => {
+      const progress = Math.min(1, (now - start) / duration);
+      const eased = 1 - Math.pow(1 - progress, 3);
+      el.textContent = String(Math.round(target * eased));
+      if (progress < 1) window.requestAnimationFrame(step);
+    };
+    window.requestAnimationFrame(step);
+  };
+
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        animate(entry.target);
+        observer.unobserve(entry.target);
+      });
+    },
+    { threshold: 0.6 }
+  );
+
+  nums.forEach((el) => observer.observe(el));
+}
+
 document.addEventListener("DOMContentLoaded", () => {
   renderProjects();
   initNav();
@@ -373,4 +556,10 @@ document.addEventListener("DOMContentLoaded", () => {
   initHeroBgVideo();
   initScrollToTopAnchors();
   initScrollReveal();
+  initScrollProgress();
+  initScrollSpy();
+  initBackToTop();
+  initHeroCursorGlow();
+  initCardTiltGlow();
+  initHeroStats();
 });

@@ -17,6 +17,7 @@
     <link rel="stylesheet" href="css/style.css" />
   </head>
   <body>
+    <div class="scroll-progress" aria-hidden="true"></div>
     <a class="skip-link" href="#main">본문으로 건너뛰기</a>
     <div id="top" class="anchor-top" aria-hidden="true"></div>
 
@@ -76,6 +77,9 @@
             <source src="assets/videos/loop_background_1.mp4" type="video/mp4" />
           </video>
           <div class="hero-bg__tint" aria-hidden="true"></div>
+          <div class="hero-bg__orb hero-bg__orb--1"></div>
+          <div class="hero-bg__orb hero-bg__orb--2"></div>
+          <div class="hero-cursor-glow" id="hero-cursor-glow"></div>
         </div>
         <div class="container hero-inner">
           <h1 class="hero-title" id="hero-title">
@@ -99,6 +103,24 @@
             <a class="hero-nav-link" href="#credentials">자격 · 수상</a>
             <a class="hero-nav-link" href="#skills">기술 스택</a>
           </div>
+          <dl class="hero-stats" aria-label="한눈에 보는 활동 요약">
+            <div class="hero-stat">
+              <dt class="hero-stat-num" data-count="9">0</dt>
+              <dd class="hero-stat-label">프로젝트</dd>
+            </div>
+            <div class="hero-stat">
+              <dt class="hero-stat-num" data-count="3">0</dt>
+              <dd class="hero-stat-label">교육과정 이수</dd>
+            </div>
+            <div class="hero-stat">
+              <dt class="hero-stat-num" data-count="2">0</dt>
+              <dd class="hero-stat-label">자격증</dd>
+            </div>
+            <div class="hero-stat">
+              <dt class="hero-stat-num" data-count="2">0</dt>
+              <dd class="hero-stat-label">수상 · 활동</dd>
+            </div>
+          </dl>
         </div>
         <div class="hero-scroll-hint" aria-hidden="true">
           <span class="hero-scroll-line"></span>
@@ -131,28 +153,28 @@
             <ol class="timeline" aria-label="연도별 경험">
               <li class="timeline-item" data-reveal="left">
                 <span class="timeline-year">2023</span>
-                <div class="timeline-body">
+                <div class="timeline-body glow-card">
                   <h3 class="timeline-heading">코리아 IT 아카데미</h3>
                   <p class="timeline-desc">웹 개발 교육 이수</p>
                 </div>
               </li>
               <li class="timeline-item" data-reveal="left">
                 <span class="timeline-year">2024</span>
-                <div class="timeline-body">
+                <div class="timeline-body glow-card">
                   <h3 class="timeline-heading">SGA 서울 게임 아카데미</h3>
                   <p class="timeline-desc">게임 개발 교육 이수</p>
                 </div>
               </li>
               <li class="timeline-item" data-reveal="left">
                 <span class="timeline-year">2025</span>
-                <div class="timeline-body">
+                <div class="timeline-body glow-card">
                   <h3 class="timeline-heading">광주 인공지능사관학교</h3>
                   <p class="timeline-desc">AI 서비스 개발 교육 이수</p>
                 </div>
               </li>
             </ol>
             <aside
-              class="education-aside"
+              class="education-aside glow-card"
               aria-labelledby="education-aside-title"
               data-reveal="right"
             >
@@ -185,7 +207,7 @@
             취득한 자격증과 수상 실적입니다.
           </p>
           <div class="credentials-grid" data-reveal-group>
-            <div class="credential-card" data-reveal="scale">
+            <div class="credential-card glow-card" data-reveal="scale">
               <h3 class="credential-card-title">자격증</h3>
               <ul class="credential-list">
                 <li>
@@ -197,7 +219,7 @@
                 </li>
               </ul>
             </div>
-            <div class="credential-card" data-reveal="scale">
+            <div class="credential-card glow-card" data-reveal="scale">
               <h3 class="credential-card-title">수상 · 활동</h3>
               <ul class="credential-list">
                 <li>
@@ -226,7 +248,7 @@
             공부·실습했는지 설명이 나타납니다.
           </p>
           <div class="skill-groups" data-reveal-group>
-            <div class="skill-group" data-reveal="blur">
+            <div class="skill-group glow-card" data-reveal="blur">
               <h3 class="skill-group-title">웹 개발</h3>
               <ul class="skill-tags" aria-label="웹 개발 기술" aria-describedby="skills-hover-hint">
                 <li
@@ -273,7 +295,7 @@
                 </li>
               </ul>
             </div>
-            <div class="skill-group" data-reveal="blur">
+            <div class="skill-group glow-card" data-reveal="blur">
               <h3 class="skill-group-title">게임 개발</h3>
               <ul class="skill-tags" aria-label="게임 개발 기술" aria-describedby="skills-hover-hint">
                 <li
@@ -308,7 +330,7 @@
                 </li>
               </ul>
             </div>
-            <div class="skill-group" data-reveal="blur">
+            <div class="skill-group glow-card" data-reveal="blur">
               <h3 class="skill-group-title">AI 서비스 개발</h3>
               <ul class="skill-tags" aria-label="AI 서비스 개발 기술" aria-describedby="skills-hover-hint">
                 <li
@@ -391,7 +413,7 @@
                 </li>
               </ul>
             </div>
-            <div class="skill-group" data-reveal="blur">
+            <div class="skill-group glow-card" data-reveal="blur">
               <h3 class="skill-group-title">Tools</h3>
               <ul class="skill-tags" aria-label="도구" aria-describedby="skills-hover-hint">
                 <li
@@ -473,6 +495,18 @@
         <a class="footer-top" href="#top">맨 위로</a>
       </div>
     </footer>
+
+    <button
+      class="back-to-top"
+      id="back-to-top"
+      type="button"
+      aria-label="맨 위로 이동"
+    >
+      <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.5" aria-hidden="true">
+        <path d="M12 19V5" />
+        <path d="M5 12l7-7 7 7" />
+      </svg>
+    </button>
 
     <script src="js/main.js"></script>
   </body>
